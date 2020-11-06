@@ -1,0 +1,2 @@
+rootProject.name='Wild Thing App'
+include ':app'

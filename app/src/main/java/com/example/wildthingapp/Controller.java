@@ -1,40 +1,12 @@
 package com.example.wildthingapp;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.InputDevice;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
-
 public class Controller {
     static final public double JOYSTICK_THRESH = 0.3;
-    private MainActivity con;
-    public Controller(MainActivity c){
-        con = c;
-    }
-    public ArrayList<Integer> getGameControllerIds() {
-        ArrayList<Integer> gameControllerDeviceIds = new ArrayList<Integer>();
-        int[] deviceIds = InputDevice.getDeviceIds();
-        for (int deviceId : deviceIds) {
-            InputDevice dev = InputDevice.getDevice(deviceId);
-            int sources = dev.getSources();
-
-            // Verify that the device has gamepad buttons, control sticks, or both.
-            if (((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD)
-                    || ((sources & InputDevice.SOURCE_JOYSTICK)
-                    == InputDevice.SOURCE_JOYSTICK)) {
-                // This device is a game controller. Store its device ID.
-                if (!gameControllerDeviceIds.contains(deviceId)) {
-                    gameControllerDeviceIds.add(deviceId);
-                }
-            }
-        }
-        return gameControllerDeviceIds;
-    }
-    void processJoystickInput(MotionEvent event,
-                                      int historyPos) {
-
+    float[] processJoystickInput(MotionEvent event, int historyPos) {
         InputDevice inputDevice = event.getDevice();
 
         // Calculate the horizontal distance to move by
@@ -46,7 +18,6 @@ public class Controller {
             x = getCenteredAxis(event, inputDevice,
                     MotionEvent.AXIS_Y, historyPos);
         }
-
 
         // Calculate the vertical distance to move by
         // using the input value from one of these physical controls:
@@ -65,12 +36,11 @@ public class Controller {
             y = 0;
         }
 
-        // Update the ship object based on the new x and y values
         Log.d("values", "X " + x);
         Log.d("values", "Y " + y);
-        con.sendData(formatControllerData(y), formatControllerData(x));
+        return new float[]{formatControllerData(y), formatControllerData(x)};
     }
-    static float getCenteredAxis(MotionEvent event,
+    private static float getCenteredAxis(MotionEvent event,
                                          InputDevice device, int axis, int historyPos) {
         final InputDevice.MotionRange range =
                 device.getMotionRange(axis, event.getSource());

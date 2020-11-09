@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Wild Thing App</string>
+    <string name="MAC">00:14:03:06:33:2B</string>
+    <string name="Connect">Connect</string>
+    <string name="Disconnect">Disconnect</string>
 </resources>

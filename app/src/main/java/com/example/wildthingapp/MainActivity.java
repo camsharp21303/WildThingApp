@@ -49,10 +49,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Settings.class);
-                startActivity(intent);
+                if(bluetoothController.isConnected()){
+                    Log.d("SETTINGS", "IS Connected");
+                    bluetoothController.stopSending();
+                    bluetoothController.zeroOut();
+                    bluetoothController.sendData(5);
+                    int buttonPercent = bluetoothController.getNewestData();
+                    while(buttonPercent == 0){
+                        buttonPercent = bluetoothController.getNewestData();
+                    }
+                    Log.d("Button Percent", Integer.toString(buttonPercent));
+                    intent.putExtra("ButtonPower", buttonPercent);
+                }
+                startActivityForResult(intent, 1);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        int power = data.getIntExtra("power", 0);
+
+        Log.d("power", Integer.toString(power));
+        if(power != 0 && bluetoothController != null){
+            if(bluetoothController.isConnected()){
+                bluetoothController.sendData(4);
+                bluetoothController.sendData(power);
+            }
+        }
     }
 
     private void sendData(float[] a){

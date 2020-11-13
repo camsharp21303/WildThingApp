@@ -36,12 +36,12 @@ public class MainActivity extends AppCompatActivity {
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bluetoothController.isConnected()){
-                    bluetoothController.disconnect();
-                }
-                else{
-                    bluetoothController.connect();
-                }
+            if(bluetoothController.isConnected()){
+                bluetoothController.disconnect();
+            }
+            else{
+                bluetoothController.connect();
+            }
             }
         });
 
@@ -70,15 +70,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-
-        int power = data.getIntExtra("power", 0);
-
-        Log.d("power", Integer.toString(power));
-        if(power != 0 && bluetoothController != null){
-            if(bluetoothController.isConnected()){
-                bluetoothController.sendData(4);
-                bluetoothController.sendData(power);
+        if(resultCode == RESULT_OK) {
+            int power = data.getIntExtra("power", 0);
+            Log.d("power", Integer.toString(power));
+            if (power != 0 && bluetoothController != null) {
+                if (bluetoothController.isConnected()) {
+                    bluetoothController.sendData(4);
+                    bluetoothController.sendData(power);
+                }
             }
+        }
+        if(bluetoothController != null){
+            bluetoothController.startSending();
         }
     }
 

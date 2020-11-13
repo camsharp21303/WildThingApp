@@ -47,12 +47,12 @@ public class BluetoothController {
     public void disconnect(){
         try {
             btSocket.close();
-            con.runOnUiThread(new updateText((TextView)con.findViewById(R.id.connectStatsText), "Disconnected"));
-            con.runOnUiThread(new updateText((TextView)con.findViewById(R.id.connectButton), con.getString(R.string.Connect)));
             Log.d("Connection", "successfully disconnected btsocket");
         }catch (IOException e){
             Log.d("ERROR", "error disconnecting btSocket");
         }
+        con.runOnUiThread(new updateText((TextView)con.findViewById(R.id.connectStatsText), "Disconnected"));
+        con.runOnUiThread(new updateText((TextView)con.findViewById(R.id.connectButton), con.getString(R.string.Connect)));
     }
 
     public void stopSending(){

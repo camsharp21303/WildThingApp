@@ -71,10 +71,4 @@ public class Settings extends AppCompatActivity {
         });
 
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivityForResult(myIntent, 0);
-        return true;
-    }
 }

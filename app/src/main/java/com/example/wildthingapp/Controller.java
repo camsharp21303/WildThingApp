@@ -5,7 +5,7 @@ import android.view.InputDevice;
 import android.view.MotionEvent;
 
 public class Controller {
-    static final public double JOYSTICK_THRESH = 0.3;
+    static final public double JOYSTICK_THRESH = 0.1;
     float[] processJoystickInput(MotionEvent event, int historyPos) {
         InputDevice inputDevice = event.getDevice();
 
@@ -65,7 +65,7 @@ public class Controller {
 
     private float formatControllerData(float per){
         if(per != 0) {
-            float temp = (((10f * Math.abs(per)) / 7f - (3f / 7f)));
+            float temp = (((10f * Math.abs(per)) / 5f - (1f / 5f)));
             Log.d("format", Float.toString(temp));
             if(per < 0f){
                 return -temp;

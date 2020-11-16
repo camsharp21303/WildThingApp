@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     bluetoothController.zeroOut();
                     bluetoothController.sendData(5);
                     int buttonPercent = bluetoothController.getNewestData();
-                    while(buttonPercent == 0){
+                    //while(buttonPercent == 0){
                         buttonPercent = bluetoothController.getNewestData();
-                    }
+                    //}
                     Log.d("Button Percent", Integer.toString(buttonPercent));
                     intent.putExtra("ButtonPower", buttonPercent);
                 }

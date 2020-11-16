@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.UUID;
 
-public class BluetoothController {
+public class    BluetoothController {
     private BluetoothSocket btSocket;
     final private BluetoothAdapter btAdapter;
     final private String mac;

@@ -7,9 +7,11 @@
     tools:context=".Settings">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="-16dp">
 
         <TextView
                 android:text="@string/SliderText"
@@ -22,22 +24,40 @@
             <SeekBar
                     android:layout_height="59dp" android:id="@+id/powerSlide" android:layout_width="295dp"/>
             <TextView
-                    android:text="buttonPower"
+                    android:text="0"
                     android:layout_width="match_parent"
                     android:layout_height="59dp" android:id="@+id/buttonPower" android:layout_weight="1"
                     android:textSize="20sp" android:gravity="center"/>
         </LinearLayout>
+        <TextView
+                android:text="MAC address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/macAddEdit"/>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-            <Button
-                    android:text="Save"
+            <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp" android:id="@+id/saveButton"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
-            />
+                    android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                <Button
+                        android:text="Reset"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" android:id="@+id/resetButton" android:layout_weight="1"/>
+                <Button
+                        android:text="Save"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp" android:id="@+id/saveButton"
+                />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

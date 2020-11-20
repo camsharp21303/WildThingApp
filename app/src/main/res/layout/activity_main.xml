@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Settings" />
+
         </LinearLayout>
 
         <TextView
@@ -39,73 +40,71 @@
             android:textStyle="bold"
             tools:text="Data" />
 
-        <LinearLayout
-            android:id="@+id/canvas"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content">
 
-            <TableLayout
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TableRow
+                <TextView
+                    android:id="@+id/text2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="wrap_content"
+                    android:text="Left Speed: " />
 
-                    <TextView
-                        android:id="@+id/text2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Left Speed: " />
-
-                    <TextView
-                        android:id="@+id/leftSpText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0%" />
-                </TableRow>
-
-                <TableRow
+                <TextView
+                    android:id="@+id/leftSpText"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="wrap_content"
+                    android:text="0%" />
+            </TableRow>
 
-                    <TextView
-                        android:id="@+id/text3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Righ Speed: " />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/rightSpText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0%" />
-                </TableRow>
-
-                <TableRow
+                <TextView
+                    android:id="@+id/text3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="wrap_content"
+                    android:text="Righ Speed: " />
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="142dp"
-                        android:layout_height="wrap_content"
-                        android:text="Connection Status: " />
-
-                    <TextView
-                        android:id="@+id/connectStatsText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="disconnected" />
-                </TableRow>
-
-                <TableRow
+                <TextView
+                    android:id="@+id/rightSpText"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </TableLayout>
+                    android:layout_height="wrap_content"
+                    android:text="0%" />
+            </TableRow>
 
-        </LinearLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="142dp"
+                    android:layout_height="wrap_content"
+                    android:text="Connection Status: " />
+
+                <TextView
+                    android:id="@+id/connectStatsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="disconnected" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+
+        <Switch
+            android:id="@+id/buttonControl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Buttons" />
 
     </LinearLayout>
 

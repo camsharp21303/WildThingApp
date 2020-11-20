@@ -5,8 +5,8 @@ import android.view.InputDevice;
 import android.view.MotionEvent;
 
 public class Controller {
-    static final public double JOYSTICK_THRESH = 0.3;
-    float[] processJoystickInput(MotionEvent event, int historyPos) {
+    static final public double JOYSTICK_THRESH = 0.1;
+    double[] processJoystickInput(MotionEvent event, int historyPos) {
         InputDevice inputDevice = event.getDevice();
 
         // Calculate the horizontal distance to move by
@@ -38,7 +38,7 @@ public class Controller {
 
         Log.d("values", "X " + x);
         Log.d("values", "Y " + y);
-        return new float[]{formatControllerData(y), formatControllerData(x)};
+        return new double[]{formatControllerData(y), formatControllerData(x)};
     }
     private static float getCenteredAxis(MotionEvent event,
                                          InputDevice device, int axis, int historyPos) {
@@ -63,10 +63,12 @@ public class Controller {
         return 0;
     }
 
-    private float formatControllerData(float per){
+    double formatControllerData(float per){
         if(per != 0) {
-            float temp = (((10f * Math.abs(per)) / 7f - (3f / 7f)));
-            Log.d("format", Float.toString(temp));
+            double slope = 1/(1-JOYSTICK_THRESH);
+            double intercept = -slope*JOYSTICK_THRESH;
+            double temp = slope * Math.abs(per) + intercept;
+            Log.d("format", Double.toString(temp));
             if(per < 0f){
                 return -temp;
             }

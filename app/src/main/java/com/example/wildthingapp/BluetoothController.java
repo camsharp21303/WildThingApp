@@ -14,7 +14,7 @@ import java.util.UUID;
 public class    BluetoothController {
     private BluetoothSocket btSocket;
     final private BluetoothAdapter btAdapter;
-    final private String mac;
+    private String mac;
     private int power1 = 0, power2 = 1;
     private int newestData;
     final private Activity con;
@@ -26,6 +26,9 @@ public class    BluetoothController {
         this.con = con;
     }
 
+    public void setMAC(String mac){
+        this.mac = mac;
+    }
     public boolean isConnected(){
         if(btSocket == null){
             return false;

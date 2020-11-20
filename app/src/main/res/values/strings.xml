@@ -5,4 +5,5 @@
     <string name="Connect">Connect</string>
     <string name="Disconnect">Disconnect</string>
     <string name="SliderText">Button Power</string>
+    <string name="shared_file">com.wildThingApp.settings.PREFERENCE_FILE_KEY</string>
 </resources>

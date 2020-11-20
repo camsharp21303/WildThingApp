@@ -2,6 +2,7 @@ package com.example.wildthingapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.InputDevice;
@@ -14,9 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     Button connectButton, settings;
     Controller controller;
-    BluetoothController bluetoothController;
+    BluetoothController bluetoothController = null;
     TextView conStatText, leftSpText, rightSpText;
     Context context;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
         leftSpText = findViewById(R.id.leftSpText);
         rightSpText = findViewById(R.id.rightSpText);
 
-        bluetoothController = new BluetoothController(getString(R.string.MAC), this);
+        sharedPref = this.getPreferences(MODE_PRIVATE);
+        String mac = sharedPref.getString(getString(R.string.shared_file), getString(R.string.MAC));
+
+        bluetoothController = new BluetoothController(mac, this);
 
         controller = new Controller();
         connectButton.setOnClickListener(new View.OnClickListener() {
@@ -71,18 +76,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
+            boolean changed = data.getBooleanExtra("changedMAC", false);
             int power = data.getIntExtra("power", 0);
             Log.d("power", Integer.toString(power));
-            if (power != 0 && bluetoothController != null) {
-                if (bluetoothController.isConnected()) {
+            if(bluetoothController.isConnected()){
+                if (power != 0 && bluetoothController.isConnected()) {
                     bluetoothController.sendData(4);
                     bluetoothController.sendData(power);
                 }
+                if(changed ) {
+                    bluetoothController.disconnect();
+                    bluetoothController.setMAC(sharedPref.getString(getString(R.string.shared_file), getString(R.string.MAC)));
+                    bluetoothController.connect();
+                }
+                bluetoothController.startSending();
             }
         }
-        if(bluetoothController != null){
-            bluetoothController.startSending();
-        }
+
     }
 
     private void sendData(double[] a){

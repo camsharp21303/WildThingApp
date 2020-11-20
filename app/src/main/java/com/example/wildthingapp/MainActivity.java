@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     bluetoothController.zeroOut();
                     bluetoothController.sendData(5);
                     int buttonPercent = bluetoothController.getNewestData();
-                    //while(buttonPercent == 0){
+                    while(buttonPercent == 0){
                         buttonPercent = bluetoothController.getNewestData();
-                    //}
+                    }
                     Log.d("Button Percent", Integer.toString(buttonPercent));
                     intent.putExtra("ButtonPower", buttonPercent);
                 }
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void sendData(float[] a){
-        float num1 = 0;
-        float num2 = 1;
+    private void sendData(double[] a){
+        double num1 = 0;
+        double num2 = 1;
 
         String num1String = a[0]*100 + "%";
         String num2String = a[1]*100 + "%";
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Process the current movement sample in the batch (position -1)
-            float[] data = controller.processJoystickInput(event, -1);
+            double[] data = controller.processJoystickInput(event, -1);
             sendData(data);
 
             return true;

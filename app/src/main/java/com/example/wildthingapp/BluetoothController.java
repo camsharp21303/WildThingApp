@@ -39,7 +39,6 @@ public class    BluetoothController {
     }
 
     public void connect(){
-        con.runOnUiThread(new updateText((TextView)con.findViewById(R.id.connectButton), con.getString(R.string.Disconnect)));
         new Thread(new ConnectSocket()).start();
 
     }
@@ -110,6 +109,7 @@ public class    BluetoothController {
             if(success){
                 Log.d("Connection", "Success");
                 con.runOnUiThread(new updateText((TextView)con.findViewById(R.id.connectStatsText), "Connected"));
+                con.runOnUiThread(new updateText((TextView)con.findViewById(R.id.connectButton), con.getString(R.string.Disconnect)));
                 stream = new powerStream();
                 new Thread(stream).start();
             }

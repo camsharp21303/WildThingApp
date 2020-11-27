@@ -9,6 +9,8 @@ import android.view.InputDevice;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Controller controller;
     BluetoothController bluetoothController = null;
     TextView conStatText, leftSpText, rightSpText;
+    Switch buttonControl;
     Context context;
     SharedPreferences sharedPref;
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         conStatText = findViewById(R.id.connectStatsText);
         leftSpText = findViewById(R.id.leftSpText);
         rightSpText = findViewById(R.id.rightSpText);
+        buttonControl = findViewById(R.id.buttonControl);
 
         sharedPref = this.getPreferences(MODE_PRIVATE);
         String mac = sharedPref.getString(getString(R.string.shared_file), getString(R.string.MAC));
@@ -69,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+        buttonControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(buttonControl.isChecked()) bluetoothController.stopSending();
+                else bluetoothController.startSending();
+            }
+        });
+
 
     }
 

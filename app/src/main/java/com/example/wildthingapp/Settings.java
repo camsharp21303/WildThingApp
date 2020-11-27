@@ -40,7 +40,7 @@ public class Settings extends AppCompatActivity {
         Log.d("Button Power", Integer.toString(percent));
         powerSlide.setMax(100);
         powerSlide.setProgress(percent);
-        powerText.setText(Integer.toString(percent));
+        powerText.setText("Button Power: " + percent);
 
         powerSlide.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -48,7 +48,7 @@ public class Settings extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        powerText.setText(Integer.toString(progress));
+                        powerText.setText("Button Power: " + progress);
                     }
                 });
                 powerBy255 = (int)(((float)progress/100)*255);

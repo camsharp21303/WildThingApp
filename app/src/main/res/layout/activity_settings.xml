@@ -16,19 +16,21 @@
         <TextView
                 android:text="@string/SliderText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/textView" android:textSize="20sp"/>
+                android:layout_height="wrap_content" android:id="@+id/buttonPower" android:textSize="20sp"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <SeekBar
-                    android:layout_height="59dp" android:id="@+id/powerSlide" android:layout_width="295dp"/>
-            <TextView
-                    android:text="0"
-                    android:layout_width="match_parent"
-                    android:layout_height="59dp" android:id="@+id/buttonPower" android:layout_weight="1"
-                    android:textSize="20sp" android:gravity="center"/>
         </LinearLayout>
+        <SeekBar
+                android:layout_height="59dp" android:id="@+id/powerSlide" android:layout_width="match_parent"/>
+        <TextView
+                android:text="Trim Level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="20sp" android:id="@+id/trimLevel"/>
+        <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/seekBar"/>
         <TextView
                 android:text="MAC address"
                 android:layout_width="match_parent"

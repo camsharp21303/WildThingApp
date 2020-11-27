@@ -14,6 +14,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
     Button connectButton, settings;
     Controller controller;
@@ -57,20 +59,34 @@ public class MainActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Settings.class);
-                if(bluetoothController.isConnected()){
+                if(bluetoothController.isConnected()) {
                     Log.d("SETTINGS", "IS Connected");
                     bluetoothController.stopSending();
-                    bluetoothController.zeroOut();
                     bluetoothController.sendData(5);
-                    int buttonPercent = bluetoothController.getNewestData();
-                    while(buttonPercent == 0){
-                        buttonPercent = bluetoothController.getNewestData();
-                    }
-                    Log.d("Button Percent", Integer.toString(buttonPercent));
-                    intent.putExtra("ButtonPower", buttonPercent);
                 }
-                startActivityForResult(intent, 1);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int buttonPercent = 0;
+                        while (bluetoothController.isConnected()) {
+                            try {
+                                if (bluetoothController.getInputStream().available() > 0) {
+                                    buttonPercent = bluetoothController.getInputStream().read();
+                                    break;
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        Log.d("Button Percent", Integer.toString(buttonPercent));
+                        Intent intent = new Intent(context, Settings.class);
+                        intent.putExtra("ButtonPower", buttonPercent);
+                        intent.putExtra("ButtonPower", buttonPercent);
+                        startActivityForResult(intent, 1);
+                    }
+                }).start();
             }
         });
         buttonControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

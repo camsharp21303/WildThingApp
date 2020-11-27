@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 public class    BluetoothController {
@@ -65,20 +66,16 @@ public class    BluetoothController {
         stream.startSending();
     }
 
-    public int getNewestData(){
-        return newestData;
-    }
-
-    public void zeroOut(){
-        newestData = 0;
-    }
-
     public void sendData(int b){
         try {
             btSocket.getOutputStream().write(b);
         }catch (Exception e){
             Log.d("ERROR", "error sending byte");
         }
+    }
+
+    public InputStream getInputStream() throws IOException{
+        return btSocket.getInputStream();
     }
 
     private static class updateText implements Runnable{
@@ -136,10 +133,6 @@ public class    BluetoothController {
                     }
                     Thread.sleep(5);
                     errors = 0;
-                    if (btSocket.getInputStream().available() > 0) {
-                        newestData = btSocket.getInputStream().read();
-                        Log.d("INPUT", Integer.toString(newestData));
-                    }
                 } catch (Exception e) {
                     errors++;
                     Log.d("ERROR", "ERROR sending data " + errors);

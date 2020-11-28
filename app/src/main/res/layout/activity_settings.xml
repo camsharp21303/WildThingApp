@@ -14,23 +14,22 @@
             tools:layout_editor_absoluteX="-16dp">
 
         <TextView
-                android:text="@string/SliderText"
+                android:text="@string/buttonSliderText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/buttonPower" android:textSize="20sp"/>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-        </LinearLayout>
+
         <SeekBar
                 android:layout_height="59dp" android:id="@+id/powerSlide" android:layout_width="match_parent"/>
+
         <TextView
-                android:text="Trim Level"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:textSize="20sp" android:id="@+id/trimLevel"/>
+            android:id="@+id/trimLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/trimSliderText"
+            android:textSize="20sp" />
         <SeekBar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/seekBar"/>
+                android:layout_height="wrap_content" android:id="@+id/trimSeek"/>
         <TextView
                 android:text="MAC address"
                 android:layout_width="match_parent"

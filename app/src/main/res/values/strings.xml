@@ -4,6 +4,7 @@
     <string name="MAC">00:20:10:08:1B:08</string>
     <string name="Connect">Connect</string>
     <string name="Disconnect">Disconnect</string>
-    <string name="SliderText">Button Power</string>
+    <string name="buttonSliderText">Button Power: %d%%</string>
+    <string name="trimSliderText">Trim : %d</string>
     <string name="shared_file">com.wildThingApp.settings.PREFERENCE_FILE_KEY</string>
 </resources>

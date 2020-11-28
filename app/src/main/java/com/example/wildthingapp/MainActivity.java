@@ -69,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         int buttonPercent = 0;
+                        int trim = 0;
                         while (bluetoothController.isConnected()) {
                             try {
-                                if (bluetoothController.getInputStream().available() > 0) {
+                                if (bluetoothController.getInputStream().available() > 1) {
                                     buttonPercent = bluetoothController.getInputStream().read();
+                                    trim = bluetoothController.getInputStream().read();
                                     break;
                                 }
                             } catch (IOException e) {
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Button Percent", Integer.toString(buttonPercent));
                         Intent intent = new Intent(context, Settings.class);
                         intent.putExtra("ButtonPower", buttonPercent);
-                        intent.putExtra("ButtonPower", buttonPercent);
+                        intent.putExtra("trimLevel", trim);
                         startActivityForResult(intent, 1);
                     }
                 }).start();
@@ -92,8 +94,10 @@ public class MainActivity extends AppCompatActivity {
         buttonControl.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(buttonControl.isChecked()) bluetoothController.stopSending();
-                else bluetoothController.startSending();
+                if(bluetoothController.isConnected()) {
+                    if (buttonControl.isChecked()) bluetoothController.stopSending();
+                    else bluetoothController.startSending();
+                }
             }
         });
 
@@ -106,13 +110,16 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK) {
             boolean changed = data.getBooleanExtra("changedMAC", false);
             int power = data.getIntExtra("power", 0);
+            int trim = data.getIntExtra("trimLevel", 0);
             Log.d("power", Integer.toString(power));
             if(bluetoothController.isConnected()){
-                if (power != 0 && bluetoothController.isConnected()) {
+                if (power != 0) {
                     bluetoothController.sendData(4);
                     bluetoothController.sendData(power);
+                    bluetoothController.sendData(6);
+                    bluetoothController.sendData(trim);
                 }
-                if(changed ) {
+                if(changed) {
                     bluetoothController.disconnect();
                     bluetoothController.setMAC(sharedPref.getString(getString(R.string.shared_file), getString(R.string.MAC)));
                     bluetoothController.connect();

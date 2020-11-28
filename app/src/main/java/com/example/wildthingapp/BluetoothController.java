@@ -17,7 +17,6 @@ public class    BluetoothController {
     final private BluetoothAdapter btAdapter;
     private String mac;
     private int power1 = 0, power2 = 1;
-    private int newestData;
     final private Activity con;
     private powerStream stream;
 
